@@ -1,26 +1,27 @@
 # Online Book Store SQL Project
 
-A PostgreSQL project for exploring an online bookstore's books, customers, orders, sales revenue, and inventory using basic and advanced SQL queries.
+A PostgreSQL project that analyzes an online bookstore's books, customers, orders, sales, and inventory using basic and advanced SQL queries.
 
-## Project Structure
+## Repository Structure
 
-```
+```text
 Online-Book-Store/
-├── Dataset/
-│   ├── Books.csv
-│   ├── Customers.csv
-│   └── Orders.csv
+├── Books.csv
+├── Customers.csv
+├── Orders.csv
 ├── Online_Book_Store_Project.sql
 └── README.md
 ```
 
-## Datasets
+## Dataset Overview
 
-The project uses three CSV datasets:
+The project uses three CSV files:
 
-- **Books.csv** — book ID, title, author, genre, publication year, price, and stock.
-- **Customers.csv** — customer ID, name, email, phone, city, and country.
-- **Orders.csv** — order ID, customer ID, book ID, order date, quantity, and total amount.
+| File | Description |
+|---|---|
+| `Books.csv` | Book ID, title, author, genre, publication year, price, and stock |
+| `Customers.csv` | Customer ID, name, email, phone, city, and country |
+| `Orders.csv` | Order ID, customer ID, book ID, order date, quantity, and total amount |
 
 ## Tools and Technologies
 
@@ -28,37 +29,68 @@ The project uses three CSV datasets:
 - SQL
 - CSV datasets
 
-## SQL Concepts Covered
+## Database Schema
+
+The database contains three related tables:
+
+- **Books** — stores book details and inventory.
+- **Customers** — stores customer information.
+- **Orders** — stores purchases and links customers to books through foreign keys.
+
+## SQL Concepts Demonstrated
 
 - Database and table creation
-- Primary keys and foreign keys
-- Filtering and sorting with `WHERE` and `ORDER BY`
+- Primary keys, foreign keys, and serial ID sequences
+- Data import from CSV files
+- Filtering, sorting, and distinct values
 - Aggregate functions: `SUM`, `AVG`, and `COUNT`
 - Joins: `JOIN` and `LEFT JOIN`
-- Grouping with `GROUP BY` and `HAVING`
-- Inventory and sales analysis
+- Grouping and filtering groups with `GROUP BY` and `HAVING`
+- Sales, customer, genre, and inventory analysis
 
-## How to Run
+## How to Run the Project
 
-1. Install PostgreSQL.
-2. Clone or download this repository.
-3. Create the three tables and import the CSV files.
-4. Open `Online_Book_Store_Project.sql` in PostgreSQL's `psql` tool.
-5. Update the CSV file paths in the import commands to match your computer before running them.
+**Requirement:** PostgreSQL with the `psql` command-line tool.
 
-**Note:** The SQL script uses the `psql` meta-command `\\c OnlineBookstore`. If you use pgAdmin, connect to the database separately and omit that line. PostgreSQL server-side `COPY` paths must be accessible to the database server; client-side `\\copy` can be used from `psql` for local files.
+1. Download or clone this repository.
+2. Open a terminal in the repository folder so the three CSV files are in the current working directory.
+3. Run the script:
+
+   ```bash
+   psql -U postgres -f Online_Book_Store_Project.sql
+   ```
+
+4. Enter your PostgreSQL password when prompted.
+5. The script creates the database, creates the tables, imports the CSV files, and runs the analysis queries.
+
+The import commands use PostgreSQL's client-side `\\copy` command, so the CSV files are read from your computer. Run the script from the repository folder. If you use pgAdmin, create/connect to the `onlinebookstore` database separately and use pgAdmin's Import/Export feature for each CSV; the `psql` commands beginning with a backslash are not ordinary SQL.
 
 ## Analysis Questions
 
-The queries explore Fiction books, publication years, customers by country, monthly orders, total stock, most and least expensive books, revenue, books sold by genre, average Fantasy book price, repeat customers, frequently ordered books, sales by author, high-value orders, top-spending customers, and estimated remaining stock.
+The queries cover:
+
+- Fiction books and books published after 1950
+- Customers from Canada and orders placed in November 2023
+- Total inventory, highest-priced book, and lowest-stock book
+- Total sales revenue and orders with quantities or amounts above specified values
+- Books sold by genre and author
+- Average price of Fantasy books and the three most expensive Fantasy books
+- Customers with at least two orders
+- Most frequently ordered book by quantity
+- Cities with individual orders above 30
+- Highest-spending customer
+- Estimated remaining stock after recorded orders
 
 ## Important Notes
 
-- Review the `DROP TABLE IF EXISTS` statements before running the script; they remove existing tables.
-- The remaining-stock calculation is an estimate based on the stock values and recorded order quantities.
-- Update local CSV paths before importing data.
+- **Data reset:** The SQL script drops and recreates the `Orders`, `Customers`, and `Books` tables. Back up any data you need before running it again.
+- **CSV files:** Keep all three CSV files in the repository folder when running the script with `psql`.
+- **Inventory estimate:** The remaining-stock query subtracts recorded order quantities from the stock values in the Books table. Treat it as an estimate unless the stock values represent the starting inventory.
+- **Currency:** The script uses the amounts as provided in the dataset and does not assume a currency.
 
 ## Author
 
-**MD Jahid**  
-GitHub: https://github.com/MdJahid10080
+**MD Jahid**
+
+- GitHub: https://github.com/MdJahid10080
+- Project repository: https://github.com/MdJahid10080/Online-Book-Store
