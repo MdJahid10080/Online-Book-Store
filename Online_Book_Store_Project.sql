@@ -56,7 +56,7 @@ CREATE TABLE Orders (
 
 -- Import CSV files from the repository folder.
 -- These are psql client-side commands, not standard SQL.
-\copy Books(Book_ID, Title, Author, Genre, Published_Year, Price, Stock) FROM 'Books.csv' WITH (FORMAT csv, HEADER true);
+\copy Books(Book_ID, Title, Author, Genre, Published_Year, Price, Stock) FROM 'Books.csv' WITH (FORMAT csv, HEADER true)
 \copy Customers(Customer_ID, Name, Email, Phone, City, Country) FROM 'Customers.csv' WITH (FORMAT csv, HEADER true);
 \copy Orders(Order_ID, Customer_ID, Book_ID, Order_Date, Quantity, Total_Amount) FROM 'Orders.csv' WITH (FORMAT csv, HEADER true);
 
